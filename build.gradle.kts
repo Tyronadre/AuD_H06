@@ -1,13 +1,17 @@
+import org.jagrkt.submitter.submit
+
 plugins {
   java
   application
+  id("org.jagrkt.submitter").version("0.2.0")
 }
 
-// do not change assignmentId
-val assignmentId: String by extra("H06")
-val studentId: String by extra("_not_set_") // TU-ID  z.B. ab12cdef
-val firstName: String by extra("_not_set_")
-val lastName: String by extra("_not_set_")
+submit {
+  assignmentId = "H06" // do not change assignmentId
+  studentId = null // TU-ID  z.B. "ab12cdef"
+  firstName = null
+  lastName = null
+}
 
 // !! Achtung !!
 // Die studentId (TU-ID) ist keine Matrikelnummer
@@ -33,22 +37,8 @@ application {
 }
 
 tasks {
-  create<Jar>("prepareSubmission") {
-    dependsOn(test) // run tests before creating submission
-    doFirst {
-      if (studentId == "_not_set_" || firstName == "_not_set_" || lastName == "_not_set_") {
-        throw GradleException("studentId or firstName or lastName not set!")
-      }
-    }
-    // include source files in output jar
-    from(sourceSets.main.get().allSource, sourceSets.test.get().allSource)
-    // replace placeholders in resource directory
-    // e.g. the submission-info.json file
-    filesMatching("submission-info.json") {
-      expand(project.properties)
-    }
-    // set the name of the output jar
-    archiveFileName.set("$assignmentId-$lastName-$firstName-submission.jar")
+  create<Jar>("prepareSubmission-Old__Use_The_One_Under_Submit_Instead") {
+    dependsOn("prepareSubmission")
   }
   test {
     useJUnitPlatform()
