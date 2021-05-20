@@ -3,7 +3,7 @@ import org.jagrkt.submitter.submit
 plugins {
   java
   application
-  id("org.jagrkt.submitter").version("0.2.0")
+  id("org.jagrkt.submitter").version("0.3.1")
 }
 
 submit {
@@ -11,6 +11,8 @@ submit {
   studentId = null // TU-ID  z.B. "ab12cdef"
   firstName = null
   lastName = null
+  // Optionally require tests for prepareSubmission task. Default is true
+  requireTests = true
 }
 
 // !! Achtung !!
